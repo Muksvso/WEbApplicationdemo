@@ -7,6 +7,7 @@ namespace WebApplicationDemoAppTest.Models
     {
         [Required]
         [Display(Name = "Email")]
+        //comment
         public string Email { get; set; }
     }
 
