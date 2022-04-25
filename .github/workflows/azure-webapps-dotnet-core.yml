@@ -61,7 +61,7 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-
+          
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -82,3 +82,28 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          
+  experiment:
+    runs-on: ubuntu-latest
+
+    steps:
+     
+
+      - name: Set up Traffic for Variants
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Start Experiment
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+             
+          
+          
+
+ 
